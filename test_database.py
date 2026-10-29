@@ -16,7 +16,7 @@ def main():
         print("Se sono arrivato qui mi sono collegato al database")
 
         # Mi faccio dare dalla connessione conn un cursore
-        # cursore = conn.cursor()
+        #cursore = conn.cursor()
         cursore_dizionario = conn.cursor(dictionary=True)
 
         # Scrivo la query in SQL
@@ -31,18 +31,20 @@ def main():
 
         query = f"""SELECT `S#`, `STATUS`
                    FROM S
-                   WHERE CITY = %s"""
+                   WHERE CITY = %s AND
+                   """
+                   #STATUS > %s
 
 
         # La eseguo attraverso il cursore
         #cursore.execute(query)
         #cursore_dizionario.execute(query)
-        cursore_dizionario.execute(query, (citta, ))
+        cursore_dizionario.execute(query, (citta,  ))
 
         # Il cursore è un container di Python ...
         # ... quindi posso iterare su di esso con for
         #for riga in cursore:
-        #    print(riga[1])
+        #    print(riga[0]+" "+riga[3])
 
         for riga in cursore_dizionario:
             #print(riga["SNAME"])
